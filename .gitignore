@@ -1,0 +1,37 @@
+Công_nghệ_thực_hiện.jpg
+TÀI_LIỆU_TỔNG_QUAN_HỆ_THỐNG.docx
+
+# --- Thông tin bảo mật ---
+.env
+
+# --- Môi trường ảo & Thư viện ---
+backend/venv/
+frontend/node_modules/
+
+# --- Dữ liệu Database ---
+data/
+**/postgres_data/
+
+# --- Files tĩnh và Media ---
+backend/staticfiles/
+backend/media/
+staticfiles/
+media/
+
+# --- Cache & File tạm ---
+**/__pycache__/
+**/*.pyc
+.DS_Store
+
+# --- Build Files ---
+frontend/dist/
+
+# --- Test Files ---
+**/test_ai/
+**/test_quiz/
+test_ai.py
+test_quiz.py
+a_document/
+
+# --- Documentation ---
+implementation_plan.md

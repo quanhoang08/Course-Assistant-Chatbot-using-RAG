@@ -1,0 +1,13 @@
+**/node_modules/
+**/venv/
+
+# --- Không chép dữ liệu và file tĩnh ---
+data/
+**/staticfiles/
+**/media/
+**/postgres_data/
+
+# --- Không chép lịch sử Git và file rác ---
+.git/
+**/__pycache__/
+.DS_Store

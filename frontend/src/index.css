@@ -1,0 +1,169 @@
+/* =====================================================
+   GOOGLE FONTS — Inter (Tối ưu cho web app)
+   ===================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* =====================================================
+   DESIGN TOKENS — CSS Custom Properties
+   (Nguồn gốc sự thật duy nhất cho toàn bộ màu sắc,
+    khoảng cách, bo góc và đổ bóng của dự án)
+   ===================================================== */
+:root {
+  /* --- Bảng màu chính (Color Palette) --- */
+  --color-bg-base:       #FFFDF5;   /* Kem sữa — Nền tổng thể App */
+  --color-bg-sidebar:    #FDF8EE;   /* Kem sữa đậm hơn — Nền Sidebar */
+  --color-bg-white:      #FFFFFF;   /* Trắng tinh — Topbar, Card nổi */
+  --color-bg-hover:      #F7EDE2;   /* Kem ấm — Hover item menu */
+
+  /* --- Màu nhấn chính: Cam hổ phách (Primary) --- */
+  --color-primary:       #C47F16;   /* Cam hổ phách chủ đạo */
+  --color-primary-dark:  #A86812;   /* Cam đậm hơn — Hover nút */
+  --color-primary-light: #C9822A;   /* Cam sáng — gradient, badge */
+  --color-primary-bg:    #FEF3E0;   /* Nền nhạt của primary */
+  --color-primary-border:#EDD5A3;   /* Border nhạt màu cam */
+
+  /* --- Màu phụ: Navy (Secondary) --- */
+  --color-navy:          #2C3E50;   /* Navy đậm — Tiêu đề lớn, text quan trọng */
+  --color-navy-light:    #3D5166;   /* Navy nhạt hơn */
+
+  /* --- Màu văn bản (Text) --- */
+  --color-text-main:     #2D2925;   /* Nâu đậm — Body text chính */
+  --color-text-muted:    #7F7161;   /* Nâu nhạt — Text phụ, placeholder */
+  --color-text-light:    #A89880;   /* Nâu xám — Ghi chú nhỏ */
+  --color-text-inverse:  #FFFFFF;   /* Trắng — Chữ trên nền tối */
+
+  /* --- Màu đường kẻ & phân cách (Border) --- */
+  --color-border:        #EDE8E0;   /* Border nhạt, tinh tế */
+  --color-border-active: #C47F16;   /* Border khi active (màu primary) */
+
+  /* --- Màu trạng thái (State) --- */
+  --color-success:       #16A34A;
+  --color-warning:       #D97706;
+  --color-error:         #DC2626;
+  --color-info:          #2563EB;
+
+  /* --- Khoảng cách (Spacing — hệ 4px) --- */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* --- Bo góc (Border-radius) --- */
+  --radius-sm:   6px;    /* Input nhỏ, badge */
+  --radius-btn:  8px;    /* Nút bấm tiêu chuẩn */
+  --radius-card: 16px;   /* Card, bubble chat, widget */
+  --radius-full: 9999px; /* Pill, avatar tròn */
+
+  /* --- Đổ bóng (Shadow — Soft shadow tông cam) --- */
+  --shadow-soft:  0px 4px 12px rgba(196, 127, 22, 0.08);   /* Card thường */
+  --shadow-md:    0px 6px 20px rgba(0, 0, 0, 0.08);        /* Header, Panel */
+  --shadow-hover: 0px 8px 24px rgba(196, 127, 22, 0.18);   /* Hover nút/card */
+  --shadow-float: 0px 16px 40px rgba(0, 0, 0, 0.14);       /* Modal, Dropdown */
+
+  /* --- Typography --- */
+  --font-family:  'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 13px;
+  --font-size-md: 15px;
+  --font-size-lg: 18px;
+  --font-size-xl: 22px;
+  --font-size-2xl: 28px;
+
+  /* --- Transition chuẩn --- */
+  --transition-fast:   all 0.15s ease;
+  --transition-normal: all 0.25s ease;
+  --transition-slow:   all 0.4s ease;
+
+  /* --- Kích thước Layout cố định --- */
+  --sidebar-width:      260px;      /* Chiều rộng Sidebar */
+  --topbar-height:       70px;      /* Chiều cao Topbar */
+  --content-max-width: 1000px;      /* Max-width vùng nội dung chính */
+}
+
+/* =====================================================
+   GLOBAL RESET & BASE STYLES
+   ===================================================== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: var(--font-family);
+  background-color: var(--color-bg-base);
+  color: var(--color-text-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: var(--font-family);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* =====================================================
+   SCROLLBAR — Tuỳ chỉnh tinh tế tông cam
+   ===================================================== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-border);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* =====================================================
+   UTILITY CLASSES — Dùng chung toàn dự án
+   ===================================================== */
+.text-primary   { color: var(--color-primary); }
+.text-navy      { color: var(--color-navy); }
+.text-muted     { color: var(--color-text-muted); }
+.text-center    { text-align: center; }
+
+.bg-primary     { background-color: var(--color-primary); }
+.bg-base        { background-color: var(--color-bg-base); }
+
+.flex           { display: flex; }
+.flex-col       { flex-direction: column; }
+.items-center   { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between{ justify-content: space-between; }
+.flex-1         { flex: 1; }
+.w-full         { width: 100%; }
+.h-full         { height: 100%; }

@@ -1,0 +1,5 @@
+Quiz result: None
+Error result: relation "quiz_app_quiz" does not exist
+LINE 1: INSERT INTO "quiz_app_quiz" ("course_id", "title", "created_...
+                    ^
+

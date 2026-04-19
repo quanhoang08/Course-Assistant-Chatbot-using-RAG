@@ -1,0 +1,86 @@
+services:
+  # 1. Cơ sở dữ liệu quan hệ (PostgreSQL)
+  db:
+    image: postgres:15-alpine
+    container_name: django_db
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  # 2. Cơ sở dữ liệu Vector cho RAG (ChromaDB)
+  vector_db:
+    image: chromadb/chroma:latest
+    container_name: chroma_db
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    restart: always
+
+  # 3. Django Backend
+  backend:
+    dns: 8.8.8.8
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: django_backend
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app
+      - ./data/media:/app/media
+      - ./data/staticfiles:/app/staticfiles
+      # - ./data/vector_db:/app/vector_db
+      - ./data:/app/data
+      # - ./.env:/app/.env
+    environment:
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - CHROMA_HOST=vector_db
+      - CHROMA_PORT=8000
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      vector_db:
+        condition: service_started
+    restart: on-failure
+
+  # 4. React Frontend (Vite)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: react_frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules # Giữ node_modules độc lập trong container
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8000/api
+      - WATCHPACK_POLLING=true
+    depends_on:
+      - backend
+    stdin_open: true
+    tty: true
+    restart: on-failure
+
+# Khai báo Volumes để lưu trữ dữ liệu bền vững
+volumes:
+  postgres_data:
+  chroma_data:
+
+  # vector_db: # Nếu bạn muốn lưu trữ dữ liệu vector bên ngoài container
+  #update docker 3/4
