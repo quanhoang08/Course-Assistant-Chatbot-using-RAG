@@ -27,3 +27,4 @@ rank_bm25
 duckduckgo-search>=6.0.0
 
 gunicorn
+dj-database-url
